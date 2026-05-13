@@ -8,7 +8,6 @@ from pathlib import Path
 import pdfplumber
 from loguru import logger
 
-
 SECTION_PATTERNS = [
     (r"^\s*ITEM\s+(\d+[A-Z]?)\.?\s+(.+?)$", "item"),
     (r"^\s*PART\s+([IVX]+)\.?\s*(.*)$", "part"),

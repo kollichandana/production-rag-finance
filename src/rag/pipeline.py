@@ -51,7 +51,7 @@ class RAGPipeline:
         self.cfg = config or PipelineConfig()
 
     @classmethod
-    def naive(cls, retriever: HybridRetriever | None = None) -> "RAGPipeline":
+    def naive(cls, retriever: HybridRetriever | None = None) -> RAGPipeline:
         """Baseline: dense-only retrieval, no rewrite/HyDE/rerank/compression/grounding."""
         return cls(
             retriever,

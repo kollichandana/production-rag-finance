@@ -11,7 +11,6 @@ import re
 from rag.retrieval.embeddings import get_embedding_service
 from rag.schemas import RetrievedChunk
 
-
 _SENT_SPLIT = re.compile(r"(?<=[.!?])\s+(?=[A-Z\[])")
 
 
@@ -36,7 +35,7 @@ def compress_chunk(query: str, text: str, keep_sentences: int = 6, min_score: fl
     embedder = get_embedding_service()
     qvec = embedder.embed_query(query)
     svecs = embedder.embed_passages(sentences)
-    scored = [(s, embedder.cosine(qvec, v)) for s, v in zip(sentences, svecs)]
+    scored = [(s, embedder.cosine(qvec, v)) for s, v in zip(sentences, svecs, strict=False)]
     scored.sort(key=lambda x: x[1], reverse=True)
     selected = [s for s, score in scored[:keep_sentences] if score >= min_score]
     if not selected:

@@ -7,7 +7,6 @@ from loguru import logger
 from rag.pipeline import get_pipeline
 from rag.schemas import QueryRequest, QueryResponse
 
-
 router = APIRouter()
 
 
@@ -25,4 +24,4 @@ def query(payload: QueryRequest) -> QueryResponse:
         return pipeline.run(payload.query, filters=payload.filters)
     except Exception as e:
         logger.exception(f"Query failed: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e

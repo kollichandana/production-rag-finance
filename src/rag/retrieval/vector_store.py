@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import uuid
+from contextlib import suppress
 from typing import Any
 
 from loguru import logger
@@ -45,7 +46,7 @@ class VectorStore:
                 optimizers_config=qm.OptimizersConfigDiff(indexing_threshold=10000),
             )
             for field in ["doc_id", "company", "ticker", "fiscal_year", "section", "chunk_type"]:
-                try:
+                with suppress(Exception):
                     self.client.create_payload_index(
                         collection_name=self.collection,
                         field_name=field,
@@ -53,8 +54,6 @@ class VectorStore:
                         if field != "fiscal_year"
                         else qm.PayloadSchemaType.INTEGER,
                     )
-                except Exception:
-                    pass
 
     def upsert_chunks(self, chunks: list[Chunk], batch_size: int = 64) -> None:
         if not chunks:
@@ -63,7 +62,7 @@ class VectorStore:
             batch = chunks[start : start + batch_size]
             vectors = self.embedder.embed_passages([c.text for c in batch])
             points = []
-            for c, v in zip(batch, vectors):
+            for c, v in zip(batch, vectors, strict=False):
                 points.append(
                     qm.PointStruct(
                         id=_chunk_id_to_point_id(c.chunk_id),

@@ -1,13 +1,12 @@
 """Optional Langfuse tracing. No-ops if credentials aren't configured."""
 from __future__ import annotations
 
-from contextlib import contextmanager
+from contextlib import contextmanager, suppress
 from typing import Any
 
 from loguru import logger
 
 from rag.settings import get_settings
-
 
 _client = None
 
@@ -73,7 +72,5 @@ def log_generation(
 def flush() -> None:
     client = _get_client()
     if client is not None:
-        try:
+        with suppress(Exception):
             client.flush()
-        except Exception:
-            pass

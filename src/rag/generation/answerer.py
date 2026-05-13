@@ -13,7 +13,6 @@ from rag.generation.prompts.templates import (
 )
 from rag.schemas import Citation, RetrievedChunk
 
-
 REFUSAL_TEXT = (
     "I don't have enough information in the retrieved filings to answer that confidently."
 )

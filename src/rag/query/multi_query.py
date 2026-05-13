@@ -11,7 +11,6 @@ from loguru import logger
 
 from rag.generation.llm_client import get_llm_client
 
-
 MULTI_QUERY_SYSTEM_PROMPT = """You generate 3 distinct paraphrases of a financial question to improve retrieval recall.
 
 Rules:

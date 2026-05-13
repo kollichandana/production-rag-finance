@@ -1,18 +1,18 @@
 """Shared Pydantic schemas used across ingestion, retrieval, and the API."""
 from datetime import datetime
-from enum import Enum
+from enum import StrEnum
 from typing import Any
 
 from pydantic import BaseModel, Field
 
 
-class DocumentType(str, Enum):
+class DocumentType(StrEnum):
     FILING_10K = "10-K"
     FILING_10Q = "10-Q"
     OTHER = "other"
 
 
-class ChunkType(str, Enum):
+class ChunkType(StrEnum):
     TEXT = "text"
     TABLE = "table"
     HEADING = "heading"

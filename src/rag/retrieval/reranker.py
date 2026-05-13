@@ -34,7 +34,7 @@ class Reranker:
             return []
         texts = [c.chunk.text for c in candidates]
         scores = list(self._model.rerank(query, texts))
-        scored = list(zip(candidates, scores))
+        scored = list(zip(candidates, scores, strict=False))
         scored.sort(key=lambda x: x[1], reverse=True)
         return [
             RetrievedChunk(chunk=c.chunk, score=float(s), retrieval_method="reranked")

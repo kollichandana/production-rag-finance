@@ -15,7 +15,6 @@ from rank_bm25 import BM25Okapi
 
 from rag.schemas import Chunk, RetrievedChunk
 
-
 _TOKEN_RE = re.compile(r"[A-Za-z0-9]+")
 
 
